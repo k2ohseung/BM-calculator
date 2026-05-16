@@ -23,19 +23,43 @@ header{
     font-weight:bold;
 }
 
-.container{
-    max-width:500px;
-    margin:auto;
+.tabs{
+    display:flex;
+}
+
+.tab{
+    flex:1;
+    padding:15px;
+    border:none;
+    background:#2a2a2a;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.tab.active{
+    background:#444;
+}
+
+.content{
+    display:none;
     padding:20px;
+}
+
+.content.active{
+    display:block;
 }
 
 .box{
     background:#2b2b2b;
     padding:20px;
     border-radius:15px;
+    max-width:500px;
+    margin:auto;
 }
 
 select,
+input,
 button{
     width:100%;
     padding:14px;
@@ -64,10 +88,89 @@ button{
 <body>
 
 <header>
-배틀마린 풀샷 계산기
+배틀마린 계산기
 </header>
 
-<div class="container">
+<div class="tabs">
+
+<button class="tab active" onclick="showTab(0)">
+거리 계산
+</button>
+
+<button class="tab" onclick="showTab(1)">
+풀샷 계산
+</button>
+
+</div>
+
+<!-- 거리 계산 -->
+
+<div class="content active">
+
+<div class="box">
+
+<select id="distanceWeapon">
+
+<option>맥피시</option>
+<option>보틀</option>
+<option>블라스트</option>
+<option>씨울프</option>
+<option>아쿨라</option>
+<option>아이언</option>
+<option>워터스프릿</option>
+<option>유봇</option>
+<option>장보고</option>
+<option>제우스</option>
+<option>타이푼</option>
+
+</select>
+
+<input
+type="number"
+id="distanceInput"
+placeholder="기준 거리 입력">
+
+<select id="distanceCurrent">
+
+<option value="0">0%</option>
+<option value="1">6%</option>
+<option value="2">13%</option>
+<option value="3">19%</option>
+<option value="4">25%</option>
+<option value="5">31%</option>
+<option value="6">38%</option>
+<option value="7">44%</option>
+<option value="8">50%</option>
+<option value="9">56%</option>
+<option value="10">63%</option>
+<option value="11">69%</option>
+<option value="12">75%</option>
+<option value="13">81%</option>
+<option value="14">88%</option>
+<option value="15">94%</option>
+<option value="16">100%</option>
+
+</select>
+
+<button onclick="distanceCalc('순졸')">
+순졸 계산
+</button>
+
+<button onclick="distanceCalc('역졸')">
+역졸 계산
+</button>
+
+<div class="result" id="distanceResult">
+0
+</div>
+
+</div>
+
+</div>
+
+<!-- 풀샷 계산 -->
+
+<div class="content">
 
 <div class="box">
 
@@ -119,134 +222,68 @@ button{
 
 <script>
 
+function showTab(index){
+
+    const tabs =
+        document.querySelectorAll('.tab');
+
+    const contents =
+        document.querySelectorAll('.content');
+
+    tabs.forEach(tab =>
+        tab.classList.remove('active'));
+
+    contents.forEach(content =>
+        content.classList.remove('active'));
+
+    tabs[index].classList.add('active');
+    contents[index].classList.add('active');
+}
+
 const fullData = {
 
     "유봇": {
 
         "순졸": [
-            39.0,
-            40.1,
-            41.2,
-            42.3,
-            43.3,
-            44.4,
-            45.5,
-            46.6,
-            47.7,
-            48.8,
-            49.8,
-            50.9,
-            52.0,
-            53.1,
-            54.2,
-            55.3,
-            56.3
+            39.0,40.1,41.2,42.3,43.3,44.4,
+            45.5,46.6,47.7,48.8,49.8,
+            50.9,52.0,53.1,54.2,55.3,56.3
         ],
 
         "역졸": [
-            39.0,
-            37.9,
-            36.8,
-            35.8,
-            34.7,
-            33.6,
-            32.5,
-            31.4,
-            30.3,
-            29.3,
-            28.2,
-            27.1,
-            26.0,
-            24.9,
-            23.8,
-            22.8,
-            21.7
+            39.0,37.9,36.8,35.8,34.7,33.6,
+            32.5,31.4,30.3,29.3,28.2,
+            27.1,26.0,24.9,23.8,22.8,21.7
         ]
     },
 
     "제우스": {
 
         "순졸": [
-            37.0,
-            38.0,
-            39.1,
-            40.1,
-            41.1,
-            42.1,
-            43.2,
-            44.2,
-            45.2,
-            46.3,
-            47.3,
-            48.3,
-            49.3,
-            50.4,
-            51.4,
-            52.4,
-            53.4
+            37.0,38.0,39.1,40.1,41.1,42.1,
+            43.2,44.2,45.2,46.3,47.3,
+            48.3,49.3,50.4,51.4,52.4,53.4
         ],
 
         "역졸": [
-            37.0,
-            36.0,
-            34.9,
-            33.9,
-            32.9,
-            31.9,
-            30.8,
-            29.8,
-            28.8,
-            27.8,
-            26.7,
-            25.7,
-            24.7,
-            23.6,
-            22.6,
-            21.6,
-            20.6
+            37.0,36.0,34.9,33.9,32.9,31.9,
+            30.8,29.8,28.8,27.8,26.7,
+            25.7,24.7,23.6,22.6,21.6,20.6
         ]
     },
 
     "맥피시": {
 
         "순졸": [
-            23.0,
-            23.6,
-            24.3,
-            24.9,
-            25.6,
-            26.2,
-            26.8,
-            27.5,
-            28.1,
-            28.8,
-            29.4,
-            30.0,
-            30.7,
-            31.3,
-            31.9,
-            32.6,
-            33.2
+            23.0,23.6,24.3,24.9,25.6,26.2,
+            26.8,27.5,28.1,28.8,29.4,
+            30.0,30.7,31.3,31.9,32.6,33.2
         ],
 
         "역졸": [
-            23.0,
-            22.4,
-            21.7,
-            21.1,
-            20.4,
-            19.8,
-            19.2,
-            18.5,
-            17.9,
-            17.3,
-            16.6,
-            16.0,
-            15.3,
-            14.7,
-            14.1,
-            13.4,
-            12.8
+            23.0,22.4,21.7,21.1,20.4,19.8,
+            19.2,18.5,17.9,17.3,16.6,
+            16.0,15.3,14.7,14.1,13.4,12.8
         ]
     }
 
@@ -264,6 +301,31 @@ function calc(type){
         fullData[weapon][type][current];
 
     document.getElementById("result").innerText =
+        result.toFixed(1);
+}
+
+function distanceCalc(type){
+
+    let distance =
+        Number(document.getElementById("distanceInput").value);
+
+    let current =
+        Number(document.getElementById("distanceCurrent").value);
+
+    let result;
+
+    if(type === '순졸'){
+
+        result =
+            distance * (1 - (current / 16));
+
+    }else{
+
+        result =
+            distance * (1 + (current / 16));
+    }
+
+    document.getElementById("distanceResult").innerText =
         result.toFixed(1);
 }
 
