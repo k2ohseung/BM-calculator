@@ -111,17 +111,17 @@ button{
 
 <select id="distanceWeapon">
 
-<option>장보고</option>
-<option>워터스프릿</option>
-<option>보틀</option>
-<option>아이언</option>
-<option>아쿨라</option>
-<option>씨울프</option>
-<option>블라스트</option>
-<option>타이푼</option>
-<option>맥피시</option>
-<option>유봇</option>
-<option>제우스</option>
+<option value="A">맥피시</option>
+<option value="D">보틀</option>
+<option value="C">블라스트</option>
+<option value="B">씨울프</option>
+<option value="B">아쿨라</option>
+<option value="C">아이언</option>
+<option value="C">워터스프릿</option>
+<option value="A">유봇</option>
+<option value="D">장보고</option>
+<option value="B">제우스</option>
+<option value="B">타이푼</option>
 
 </select>
 
@@ -296,17 +296,46 @@ function distanceCalc(type){
     let current =
         Number(document.getElementById("distanceCurrent").value);
 
+    let weapon =
+        document.getElementById("distanceWeapon").value;
+
+    let group;
+
+    if(weapon === "A"){
+        group = 8;
+    }
+
+    if(weapon === "B"){
+        group = 7;
+    }
+
+    if(weapon === "C"){
+        group = 6;
+    }
+
+    if(weapon === "D"){
+        group = 5;
+    }
+
+    let ratio =
+        current / 16;
+
     let result;
 
+    // 순조류
     if(type === '순졸'){
 
         result =
-            distance * (1 - (current / 16));
+            distance * (1 + ratio * group / 4);
 
-    }else{
+    }
+
+    // 역조류
+    else{
 
         result =
-            distance * (1 + (current / 16));
+            distance * (1 - ratio * group / 4);
+
     }
 
     document.getElementById("distanceResult").innerText =
