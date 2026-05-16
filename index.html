@@ -283,7 +283,7 @@ function calcFull(type){
 
 function calcDistance(type){
 
-    let weapon = Number(document.getElementById('distanceWeapon').value);
+    let weapon = document.getElementById('distanceWeapon').value;
     let base = Number(document.getElementById('baseDistance').value);
     let current = Number(document.getElementById('distanceCurrent').value);
 
@@ -292,12 +292,26 @@ function calcDistance(type){
         return;
     }
 
+    // 군 분류
+    let group;
+
+    if(weapon === '39' || weapon === '23'){
+        group = 36; // A군
+    }else if(weapon === '37' || weapon === '32' || weapon === '33'){
+        group = 32; // B군
+    }else if(weapon === '29' || weapon === '31' || weapon === '35'){
+        group = 28; // C군
+    }else{
+        group = 24; // D군
+    }
+
     let result;
 
+    // 실제 엑셀 기준 계산
     if(type === 'plus'){
-        result = (base * current) / weapon * 27;
+        result = (base * group) / (group + (16 * current));
     }else{
-        result = base / current;
+        result = (base * group) / (group - (16 * current));
     }
 
     document.getElementById('distanceResult').innerText = result.toFixed(1);
@@ -307,3 +321,4 @@ function calcDistance(type){
 
 </body>
 </html>
+
