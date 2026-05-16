@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>배틀마린 계산기</title>
 
 <style>
@@ -23,205 +23,95 @@ header{
     font-weight:bold;
 }
 
-.tabs{
-    display:flex;
-}
-
-.tab{
-    flex:1;
-    padding:15px;
-    text-align:center;
-    background:#2a2a2a;
-    cursor:pointer;
-    border:none;
-    color:white;
-    font-size:18px;
-}
-
-.tab.active{
-    background:#444;
-}
-
-.content{
-    display:none;
+.container{
+    max-width:500px;
+    margin:auto;
     padding:20px;
-}
-
-.content.active{
-    display:block;
 }
 
 .box{
-    background:#2a2a2a;
+    background:#2b2b2b;
     padding:20px;
-    border-radius:12px;
-    max-width:500px;
-    margin:auto;
+    border-radius:15px;
 }
 
 select,
-input,
 button{
     width:100%;
-    padding:12px;
+    padding:14px;
     margin-top:12px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     font-size:16px;
 }
 
 button{
-    background:#0080ff;
+    background:#0077ff;
     color:white;
     cursor:pointer;
 }
 
 .result{
-    margin-top:20px;
+    margin-top:25px;
     text-align:center;
-    font-size:32px;
+    font-size:42px;
     font-weight:bold;
-}
-
-.table-wrap{
-    overflow-x:auto;
-    margin-top:20px;
-}
-
-table{
-    border-collapse:collapse;
-    width:100%;
-}
-
-th,
-td{
-    border:1px solid #666;
-    padding:10px;
-    text-align:center;
-}
-
-th{
-    background:#333;
 }
 
 </style>
 </head>
+
 <body>
 
 <header>
-배틀마린 계산기
+배틀마린 풀샷 계산기
 </header>
 
-<div class="tabs">
-    <button class="tab active" onclick="showTab(0)">거리별</button>
-    <button class="tab" onclick="showTab(1)">풀샷</button>
-</div>
-
-<!-- 거리별 탭 -->
-<div class="content active">
+<div class="container">
 
 <div class="box">
 
-<h2>거리별 계산</h2>
-<p>잠수함 선택 후 기준 거리를 입력하고 순졸 / 역졸 계산 가능</p>
+<select id="weapon">
 
-<select id="distanceWeapon">
-    <option value="23">맥피시</option>
-    <option value="30">보틀</option>
-    <option value="35">블라스트</option>
-    <option value="33">씨울프</option>
-    <option value="32">아쿨라</option>
-    <option value="31">아이언</option>
-    <option value="29">워터스프릿</option>
-    <option value="39">유봇</option>
-    <option value="28">장보고</option>
-    <option value="37">제우스</option>
-    <option value="36">타이푼</option>
+<option value="유봇">유봇</option>
+<option value="제우스">제우스</option>
+<option value="맥피시">맥피시</option>
+
 </select>
 
-<input type="number" id="baseDistance" placeholder="기준 거리 입력">
+<select id="current">
 
-<select id="distanceCurrent">
-    <option value="1">0%</option>
-    <option value="0.94">6%</option>
-    <option value="0.88">13%</option>
-    <option value="0.81">19%</option>
-    <option value="0.75">25%</option>
-    <option value="0.69">31%</option>
-    <option value="0.63">38%</option>
-    <option value="0.56">44%</option>
-    <option value="0.5">50%</option>
-    <option value="0.44">56%</option>
-    <option value="0.38">63%</option>
-    <option value="0.31">69%</option>
-    <option value="0.25">75%</option>
-    <option value="0.19">81%</option>
-    <option value="0.13">88%</option>
-    <option value="0.06">94%</option>
-    <option value="0">100%</option>
+<option value="0">0%</option>
+<option value="1">6%</option>
+<option value="2">13%</option>
+<option value="3">19%</option>
+<option value="4">25%</option>
+<option value="5">31%</option>
+<option value="6">38%</option>
+<option value="7">44%</option>
+<option value="8">50%</option>
+<option value="9">56%</option>
+<option value="10">63%</option>
+<option value="11">69%</option>
+<option value="12">75%</option>
+<option value="13">81%</option>
+<option value="14">88%</option>
+<option value="15">94%</option>
+<option value="16">100%</option>
+
 </select>
 
-<button onclick="calcDistance('plus')">순졸 계산</button>
-<button onclick="calcDistance('minus')">역졸 계산</button>
+<button onclick="calc('순졸')">
+순졸 계산
+</button>
 
-<div class="result" id="distanceResult">
+<button onclick="calc('역졸')">
+역졸 계산
+</button>
+
+<div class="result" id="result">
 0
 </div>
-
-</div>
-
-</div>
-
-<!-- 풀샷 탭 -->
-<div class="content">
-
-<div class="box">
-
-<h2>풀샷 계산</h2>
-<p>잠수함별 풀샷 거리 자동 계산</p>
-
-<select id="fullWeapon">
-    <option value="23">맥피시</option>
-    <option value="30">보틀</option>
-    <option value="35">블라스트</option>
-    <option value="33">씨울프</option>
-    <option value="32">아쿨라</option>
-    <option value="31">아이언</option>
-    <option value="29">워터스프릿</option>
-    <option value="39">유봇</option>
-    <option value="28">장보고</option>
-    <option value="37">제우스</option>
-    <option value="36">타이푼</option>
-</select>
-
-<select id="fullCurrent">
-    <option value="0">0%</option>
-    <option value="1">6%</option>
-    <option value="2">13%</option>
-    <option value="3">19%</option>
-    <option value="4">25%</option>
-    <option value="5">31%</option>
-    <option value="6">38%</option>
-    <option value="7">44%</option>
-    <option value="8">50%</option>
-    <option value="9">56%</option>
-    <option value="10">63%</option>
-    <option value="11">69%</option>
-    <option value="12">75%</option>
-    <option value="13">81%</option>
-    <option value="14">88%</option>
-    <option value="15">94%</option>
-    <option value="16">100%</option>
-</select>
-
-<button onclick="calcFull('plus')">순졸 계산</button>
-<button onclick="calcFull('minus')">역졸 계산</button>
-
-<div class="result" id="fullResult">
-0
-</div>
-
-
 
 </div>
 
@@ -229,77 +119,155 @@ th{
 
 <script>
 
-function showTab(index){
+const fullData = {
 
-    const tabs = document.querySelectorAll('.tab');
-    const contents = document.querySelectorAll('.content');
+    "유봇": {
 
-    tabs.forEach(tab => tab.classList.remove('active'));
-    contents.forEach(content => content.classList.remove('active'));
+        "순졸": [
+            39.0,
+            40.1,
+            41.2,
+            42.3,
+            43.3,
+            44.4,
+            45.5,
+            46.6,
+            47.7,
+            48.8,
+            49.8,
+            50.9,
+            52.0,
+            53.1,
+            54.2,
+            55.3,
+            56.3
+        ],
 
-    tabs[index].classList.add('active');
-    contents[index].classList.add('active');
-}
+        "역졸": [
+            39.0,
+            37.9,
+            36.8,
+            35.8,
+            34.7,
+            33.6,
+            32.5,
+            31.4,
+            30.3,
+            29.3,
+            28.2,
+            27.1,
+            26.0,
+            24.9,
+            23.8,
+            22.8,
+            21.7
+        ]
+    },
 
-function calcFull(type){
+    "제우스": {
 
-    let M = Number(document.getElementById('fullWeapon').value);
-    let n = Number(document.getElementById('fullCurrent').value);
+        "순졸": [
+            37.0,
+            38.0,
+            39.1,
+            40.1,
+            41.1,
+            42.1,
+            43.2,
+            44.2,
+            45.2,
+            46.3,
+            47.3,
+            48.3,
+            49.3,
+            50.4,
+            51.4,
+            52.4,
+            53.4
+        ],
 
-    let result;
+        "역졸": [
+            37.0,
+            36.0,
+            34.9,
+            33.9,
+            32.9,
+            31.9,
+            30.8,
+            29.8,
+            28.8,
+            27.8,
+            26.7,
+            25.7,
+            24.7,
+            23.6,
+            22.6,
+            21.6,
+            20.6
+        ]
+    },
 
-    // 순조류
-    if(type === 'plus'){
-        result = M + (M * (n / 16));
+    "맥피시": {
+
+        "순졸": [
+            23.0,
+            23.6,
+            24.3,
+            24.9,
+            25.6,
+            26.2,
+            26.8,
+            27.5,
+            28.1,
+            28.8,
+            29.4,
+            30.0,
+            30.7,
+            31.3,
+            31.9,
+            32.6,
+            33.2
+        ],
+
+        "역졸": [
+            23.0,
+            22.4,
+            21.7,
+            21.1,
+            20.4,
+            19.8,
+            19.2,
+            18.5,
+            17.9,
+            17.3,
+            16.6,
+            16.0,
+            15.3,
+            14.7,
+            14.1,
+            13.4,
+            12.8
+        ]
     }
 
-    // 역조류
-    else{
-        result = M - (M * (n / 16));
-    }
+};
 
-    document.getElementById('fullResult').innerText =
+function calc(type){
+
+    let weapon =
+        document.getElementById("weapon").value;
+
+    let current =
+        Number(document.getElementById("current").value);
+
+    let result =
+        fullData[weapon][type][current];
+
+    document.getElementById("result").innerText =
         result.toFixed(1);
-}
-
-function calcDistance(type){
-
-    let weapon = document.getElementById('distanceWeapon').value;
-    let base = Number(document.getElementById('baseDistance').value);
-    let current = Number(document.getElementById('distanceCurrent').value);
-
-    if(base <= 0){
-        alert('기준 거리를 입력하세요');
-        return;
-    }
-
-    // 군 분류
-    let group;
-
-    if(weapon === '39' || weapon === '23'){
-        group = 36; // A군
-    }else if(weapon === '37' || weapon === '32' || weapon === '33'){
-        group = 32; // B군
-    }else if(weapon === '29' || weapon === '31' || weapon === '35'){
-        group = 28; // C군
-    }else{
-        group = 24; // D군
-    }
-
-    let result;
-
-    // 실제 엑셀 기준 계산
-    if(type === 'plus'){
-        result = (base * group) / (group + (16 * current));
-    }else{
-        result = (base * group) / (group - (16 * current));
-    }
-
-    document.getElementById('distanceResult').innerText = result.toFixed(1);
 }
 
 </script>
 
 </body>
 </html>
-
