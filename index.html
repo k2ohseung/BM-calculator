@@ -221,30 +221,7 @@ th{
 0
 </div>
 
-<div class="table-wrap">
-<table>
-<tr>
-<th>조류</th>
-<th>순졸</th>
-<th>역졸</th>
-</tr>
-<tr>
-<td>0%</td>
-<td>39.0</td>
-<td>39.0</td>
-</tr>
-<tr>
-<td>50%</td>
-<td>47.7</td>
-<td>30.3</td>
-</tr>
-<tr>
-<td>100%</td>
-<td>56.3</td>
-<td>21.7</td>
-</tr>
-</table>
-</div>
+
 
 </div>
 
@@ -268,17 +245,21 @@ function calcFull(type){
 
     let M = Number(document.getElementById('fullWeapon').value);
     let n = Number(document.getElementById('fullCurrent').value);
-    let X = 16;
 
     let result;
 
+    // 순조류
     if(type === 'plus'){
-        result = M + (M * n / X);
-    }else{
-        result = M - (M * n / X);
+        result = M + (M * (n / 16));
     }
 
-    document.getElementById('fullResult').innerText = result.toFixed(1);
+    // 역조류
+    else{
+        result = M - (M * (n / 16));
+    }
+
+    document.getElementById('fullResult').innerText =
+        result.toFixed(1);
 }
 
 function calcDistance(type){
