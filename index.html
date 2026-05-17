@@ -3,125 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>잠수함 거리 계산기</title>
+
+<title>조류계산기</title>
 
 <style>
-    body{
-        font-family:'Malgun Gothic',sans-serif;
-        background:#0f172a;
-        color:white;
-        margin:0;
-        padding:40px;
-    }
 
-    .container{
-        max-width:700px;
-        margin:auto;
-        background:#1e293b;
-        padding:30px;
-        border-radius:15px;
-    }
+body{
+    margin:0;
+    padding:15px;
+    background:#0f172a;
+    color:white;
+    font-family:'Malgun Gothic',sans-serif;
+}
 
-    h1{
-        text-align:center;
-        margin-bottom:30px;
-    }
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#1e293b;
+    padding:20px;
+    border-radius:18px;
+}
 
-    .box{
-        margin-bottom:20px;
-    }
+h1{
+    text-align:center;
+    margin-top:0;
+    margin-bottom:20px;
+    font-size:28px;
+}
 
-    label{
-        display:block;
-        margin-bottom:8px;
-        font-size:18px;
-    }
+.select-box{
+    margin-bottom:15px;
+}
 
-    select{
-        width:100%;
-        padding:12px;
-        font-size:16px;
-        border:none;
-        border-radius:8px;
-        background:#334155;
-        color:white;
-    }
+label{
+    display:block;
+    margin-bottom:6px;
+    font-size:15px;
+}
 
-    .result{
-        margin-top:30px;
-        background:#111827;
-        padding:25px;
-        border-radius:10px;
-        font-size:22px;
-        line-height:1.8;
-    }
+select,
+input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#334155;
+    color:white;
+    font-size:15px;
+    box-sizing:border-box;
+}
 
-    .current{
-        color:#38bdf8;
-        font-weight:bold;
-    }
+.result{
+    margin-top:20px;
+    background:#111827;
+    padding:18px;
+    border-radius:15px;
+}
 
-    .value{
-        color:#facc15;
-        font-weight:bold;
-    }
+.result-title{
+    color:#38bdf8;
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.result-value{
+    font-size:28px;
+    color:#facc15;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>잠수함 거리 계산기</h1>
+    <h1>조류계산기</h1>
 
-    <!-- 잠수함 선택 -->
-    <div class="box">
-        <label>잠수함 선택</label>
+    <!-- 캐릭터 -->
+    <div class="select-box">
+
+        <label>캐릭터</label>
 
         <select id="submarine">
-            <!-- 가나다순 -->
+
+            <option value="레이건">레이건</option>
             <option value="맥피시">맥피시</option>
+            <option value="보틀">보틀</option>
+            <option value="블라스트">블라스트</option>
+            <option value="씨울프">씨울프</option>
+            <option value="아쿨라">아쿨라</option>
+            <option value="아이언">아이언</option>
+            <option value="워터스피릿">워터스피릿</option>
             <option value="유봇">유봇</option>
+            <option value="장보고">장보고</option>
             <option value="제우스">제우스</option>
+            <option value="타이푼">타이푼</option>
+
         </select>
+
     </div>
 
-    <!-- 바람 선택 -->
-    <div class="box">
-        <label>바람 퍼센트 선택</label>
+    <!-- 거리 -->
+    <div class="select-box">
 
-        <select id="wind">
-            <option value="6">6%</option>
-            <option value="13">13%</option>
-            <option value="19">19%</option>
-            <option value="25">25%</option>
-            <option value="31">31%</option>
-            <option value="38">38%</option>
-            <option value="44">44%</option>
-            <option value="50">50%</option>
-            <option value="56">56%</option>
-            <option value="63">63%</option>
-            <option value="69">69%</option>
-            <option value="75">75%</option>
-            <option value="81">81%</option>
-            <option value="88">88%</option>
-            <option value="94">94%</option>
-            <option value="100">100%</option>
+        <label>거리</label>
+
+        <select id="distance">
+
+            <option value="37.5">37.5</option>
+            <option value="34.5">34.5</option>
+            <option value="30.5">30.5</option>
+            <option value="28.5">28.5</option>
+            <option value="26.5">26.5</option>
+            <option value="23.5">23.5</option>
+            <option value="20.5">20.5</option>
+            <option value="17.5">17.5</option>
+            <option value="15">15</option>
+            <option value="13">13</option>
+            <option value="10">10</option>
+            <option value="8">8</option>
+            <option value="6">6</option>
+
         </select>
+
+    </div>
+
+    <!-- 조류 -->
+    <div class="select-box">
+
+        <label>조류 (%)</label>
+
+        <input
+            type="number"
+            id="currentPercent"
+            value="50"
+        >
+
     </div>
 
     <!-- 결과 -->
     <div class="result">
 
-        <div>
-            <span class="current">순조류</span> :
-            <span class="value" id="forward">40.1</span>
-        </div>
+        <div class="result-title">순조류</div>
+        <div class="result-value" id="forwardValue">0.0</div>
 
-        <div>
-            <span class="current">역조류</span> :
-            <span class="value" id="reverse">37.9</span>
-        </div>
+        <div class="result-title">역조류</div>
+        <div class="result-value" id="reverseValue">0.0</div>
 
     </div>
 
@@ -129,83 +160,238 @@
 
 <script>
 
-const data = {
+/*
+====================================
+잠수함 데이터
+====================================
+*/
 
+const submarineData = {
+
+    // A군
     "유봇":{
-
-        "6":{
-            forward:"40.1",
-            reverse:"37.9"
-        },
-
-        "50":{
-            forward:"47.7",
-            reverse:"30.3"
-        }
-
+        base:36,
+        max:39
     },
 
     "제우스":{
-
-        "6":{
-            forward:"41.0",
-            reverse:"38.5"
-        },
-
-        "50":{
-            forward:"48.2",
-            reverse:"31.0"
-        }
-
+        base:36,
+        max:37
     },
 
     "맥피시":{
+        base:36,
+        max:23
+    },
 
-        "6":{
-            forward:"39.2",
-            reverse:"36.8"
-        },
+    // B군
+    "레이건":{
+        base:32,
+        max:29
+    },
 
-        "50":{
-            forward:"46.9",
-            reverse:"29.7"
-        }
+    "블라스트":{
+        base:32,
+        max:27
+    },
 
+    "씨울프":{
+        base:32,
+        max:35
+    },
+
+    "아쿨라":{
+        base:32,
+        max:41
+    },
+
+    "타이푼":{
+        base:32,
+        max:25
+    },
+
+    // C군
+    "보틀":{
+        base:28,
+        max:21
+    },
+
+    "아이언":{
+        base:28,
+        max:19
+    },
+
+    "워터스피릿":{
+        base:28,
+        max:33
+    },
+
+    // D군
+    "장보고":{
+        base:24,
+        max:31
     }
 
 };
 
-const submarine = document.getElementById("submarine");
-const wind = document.getElementById("wind");
+/*
+====================================
+조류 단계표
+====================================
+*/
 
-const forward = document.getElementById("forward");
-const reverse = document.getElementById("reverse");
+const currentTable = [
+    6,
+    13,
+    19,
+    25,
+    31,
+    38,
+    44,
+    50,
+    56,
+    63,
+    69,
+    75,
+    81,
+    88,
+    94,
+    100
+];
 
-function updateResult(){
+/*
+====================================
+DOM
+====================================
+*/
 
-    const sub = submarine.value;
-    const windValue = wind.value;
+const submarineEl =
+    document.getElementById("submarine");
 
-    const result = data[sub][windValue];
+const distanceEl =
+    document.getElementById("distance");
 
-    if(result){
+const currentPercentEl =
+    document.getElementById("currentPercent");
 
-        forward.innerText = result.forward;
-        reverse.innerText = result.reverse;
+const forwardValue =
+    document.getElementById("forwardValue");
+
+const reverseValue =
+    document.getElementById("reverseValue");
+
+/*
+====================================
+계산
+====================================
+*/
+
+function calculate(){
+
+    const submarine =
+        submarineEl.value;
+
+    const distance =
+        Number(distanceEl.value);
+
+    const percent =
+        Number(currentPercentEl.value);
+
+    /*
+    가장 가까운 조류 단계 찾기
+    */
+
+    let n = 1;
+
+    let closestDiff = Infinity;
+
+    currentTable.forEach((value,index)=>{
+
+        const diff =
+            Math.abs(percent - value);
+
+        if(diff < closestDiff){
+
+            closestDiff = diff;
+
+            n = index + 1;
+
+        }
+
+    });
+
+    const base =
+        submarineData[submarine].base;
+
+    const max =
+        submarineData[submarine].max;
+
+    /*
+    순조류
+    */
+
+    const forward =
+        distance * base / (base + n);
+
+    /*
+    역조류
+    */
+
+    const reverse =
+        distance * base / (base - n);
+
+    /*
+    출력
+    */
+
+    forwardValue.textContent =
+        forward.toFixed(1);
+
+    /*
+    역조류 제한
+    */
+
+    if(reverse > max){
+
+        reverseValue.textContent = "-";
 
     }else{
 
-        forward.innerText = "-";
-        reverse.innerText = "-";
+        reverseValue.textContent =
+            reverse.toFixed(1);
 
     }
 
 }
 
-submarine.addEventListener("change",updateResult);
-wind.addEventListener("change",updateResult);
+/*
+====================================
+이벤트
+====================================
+*/
 
-updateResult();
+submarineEl.addEventListener(
+    "change",
+    calculate
+);
+
+distanceEl.addEventListener(
+    "change",
+    calculate
+);
+
+currentPercentEl.addEventListener(
+    "input",
+    calculate
+);
+
+/*
+====================================
+초기 실행
+====================================
+*/
+
+calculate();
 
 </script>
 
