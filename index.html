@@ -142,7 +142,6 @@ input{
         id="tab1"
     >
 
-        <!-- 캐릭터 -->
         <div class="select-box">
 
             <label>캐릭터</label>
@@ -166,7 +165,6 @@ input{
 
         </div>
 
-        <!-- 거리 -->
         <div class="select-box">
 
             <label>거리</label>
@@ -191,7 +189,6 @@ input{
 
         </div>
 
-        <!-- 조류 -->
         <div class="select-box">
 
             <label>조류 (%)</label>
@@ -204,7 +201,6 @@ input{
 
         </div>
 
-        <!-- 결과 -->
         <div class="result">
 
             <div class="result-title">순조류</div>
@@ -226,7 +222,6 @@ input{
         id="tab2"
     >
 
-        <!-- 캐릭터 -->
         <div class="select-box">
 
             <label>캐릭터</label>
@@ -250,7 +245,6 @@ input{
 
         </div>
 
-        <!-- 조류 -->
         <div class="select-box">
 
             <label>조류 (%)</label>
@@ -263,7 +257,6 @@ input{
 
         </div>
 
-        <!-- 결과 -->
         <div class="result">
 
             <div class="result-title">순조류</div>
@@ -401,10 +394,6 @@ n값 계산
 
 function getN(percent){
 
-    /*
-    0%면 기본값
-    */
-
     if(percent <= 0){
 
         return 0;
@@ -478,13 +467,27 @@ function calculateCurrent(){
     const reverse =
         distance * base / (base - n);
 
-    document.getElementById(
-        "forwardValue1"
-    ).textContent =
-        forward.toFixed(1);
+    /*
+    순조류 제한
+    */
+
+    if(forward > max){
+
+        document.getElementById(
+            "forwardValue1"
+        ).textContent = "-";
+
+    }else{
+
+        document.getElementById(
+            "forwardValue1"
+        ).textContent =
+            forward.toFixed(1);
+
+    }
 
     /*
-    최대거리 초과시 숨김
+    역조류 제한
     */
 
     if(reverse > max){
@@ -531,7 +534,6 @@ function calculateFull(){
 
     /*
     순조류
-    Y = M + M*n/X
     */
 
     const forward =
@@ -539,7 +541,6 @@ function calculateFull(){
 
     /*
     역조류
-    Y = M - M*n/X
     */
 
     const reverse =
