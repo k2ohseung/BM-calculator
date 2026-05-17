@@ -199,7 +199,7 @@ input{
             <input
                 type="number"
                 id="currentPercent1"
-                value="50"
+                value="0"
             >
 
         </div>
@@ -258,7 +258,7 @@ input{
             <input
                 type="number"
                 id="currentPercent2"
-                value="50"
+                value="0"
             >
 
         </div>
@@ -401,6 +401,16 @@ n값 계산
 
 function getN(percent){
 
+    /*
+    0%면 기본값
+    */
+
+    if(percent <= 0){
+
+        return 0;
+
+    }
+
     let n = 1;
 
     let closestDiff = Infinity;
@@ -454,8 +464,16 @@ function calculateCurrent(){
     const max =
         submarineData[submarine].max;
 
+    /*
+    순조류
+    */
+
     const forward =
         distance * base / (base + n);
+
+    /*
+    역조류
+    */
 
     const reverse =
         distance * base / (base - n);
@@ -464,6 +482,10 @@ function calculateCurrent(){
         "forwardValue1"
     ).textContent =
         forward.toFixed(1);
+
+    /*
+    최대거리 초과시 숨김
+    */
 
     if(reverse > max){
 
