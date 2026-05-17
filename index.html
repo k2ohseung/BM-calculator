@@ -31,6 +31,35 @@ h1{
     font-size:28px;
 }
 
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tab-btn{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#334155;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.tab-btn.active{
+    background:#0ea5e9;
+}
+
+.tab-content{
+    display:none;
+}
+
+.tab-content.active{
+    display:block;
+}
+
 .select-box{
     margin-bottom:15px;
 }
@@ -83,76 +112,167 @@ input{
 
     <h1>조류계산기</h1>
 
-    <!-- 캐릭터 -->
-    <div class="select-box">
+    <!-- 탭 -->
+    <div class="tabs">
 
-        <label>캐릭터</label>
-
-        <select id="submarine">
-
-            <option value="레이건">레이건</option>
-            <option value="맥피시">맥피시</option>
-            <option value="보틀">보틀</option>
-            <option value="블라스트">블라스트</option>
-            <option value="씨울프">씨울프</option>
-            <option value="아쿨라">아쿨라</option>
-            <option value="아이언">아이언</option>
-            <option value="워터스피릿">워터스피릿</option>
-            <option value="유봇">유봇</option>
-            <option value="장보고">장보고</option>
-            <option value="제우스">제우스</option>
-            <option value="타이푼">타이푼</option>
-
-        </select>
-
-    </div>
-
-    <!-- 거리 -->
-    <div class="select-box">
-
-        <label>거리</label>
-
-        <select id="distance">
-
-            <option value="37.5">37.5</option>
-            <option value="34.5">34.5</option>
-            <option value="30.5">30.5</option>
-            <option value="28.5">28.5</option>
-            <option value="26.5">26.5</option>
-            <option value="23.5">23.5</option>
-            <option value="20.5">20.5</option>
-            <option value="17.5">17.5</option>
-            <option value="15">15</option>
-            <option value="13">13</option>
-            <option value="10">10</option>
-            <option value="8">8</option>
-            <option value="6">6</option>
-
-        </select>
-
-    </div>
-
-    <!-- 조류 -->
-    <div class="select-box">
-
-        <label>조류 (%)</label>
-
-        <input
-            type="number"
-            id="currentPercent"
-            value="50"
+        <button
+            class="tab-btn active"
+            onclick="showTab(1)"
+            id="tabBtn1"
         >
+            조류계산
+        </button>
+
+        <button
+            class="tab-btn"
+            onclick="showTab(2)"
+            id="tabBtn2"
+        >
+            풀거리계산
+        </button>
 
     </div>
 
-    <!-- 결과 -->
-    <div class="result">
+    <!-- ========================= -->
+    <!-- 조류 계산기 -->
+    <!-- ========================= -->
 
-        <div class="result-title">순조류</div>
-        <div class="result-value" id="forwardValue">0.0</div>
+    <div
+        class="tab-content active"
+        id="tab1"
+    >
 
-        <div class="result-title">역조류</div>
-        <div class="result-value" id="reverseValue">0.0</div>
+        <!-- 캐릭터 -->
+        <div class="select-box">
+
+            <label>캐릭터</label>
+
+            <select id="submarine1">
+
+                <option value="레이건">레이건</option>
+                <option value="맥피시">맥피시</option>
+                <option value="보틀">보틀</option>
+                <option value="블라스트">블라스트</option>
+                <option value="씨울프">씨울프</option>
+                <option value="아쿨라">아쿨라</option>
+                <option value="아이언">아이언</option>
+                <option value="워터스피릿">워터스피릿</option>
+                <option value="유봇">유봇</option>
+                <option value="장보고">장보고</option>
+                <option value="제우스">제우스</option>
+                <option value="타이푼">타이푼</option>
+
+            </select>
+
+        </div>
+
+        <!-- 거리 -->
+        <div class="select-box">
+
+            <label>거리</label>
+
+            <select id="distance1">
+
+                <option value="37.5">37.5</option>
+                <option value="34.5">34.5</option>
+                <option value="30.5">30.5</option>
+                <option value="28.5">28.5</option>
+                <option value="26.5">26.5</option>
+                <option value="23.5">23.5</option>
+                <option value="20.5">20.5</option>
+                <option value="17.5">17.5</option>
+                <option value="15">15</option>
+                <option value="13">13</option>
+                <option value="10">10</option>
+                <option value="8">8</option>
+                <option value="6">6</option>
+
+            </select>
+
+        </div>
+
+        <!-- 조류 -->
+        <div class="select-box">
+
+            <label>조류 (%)</label>
+
+            <input
+                type="number"
+                id="currentPercent1"
+                value="50"
+            >
+
+        </div>
+
+        <!-- 결과 -->
+        <div class="result">
+
+            <div class="result-title">순조류</div>
+            <div class="result-value" id="forwardValue1">0.0</div>
+
+            <div class="result-title">역조류</div>
+            <div class="result-value" id="reverseValue1">0.0</div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- 풀거리 계산기 -->
+    <!-- ========================= -->
+
+    <div
+        class="tab-content"
+        id="tab2"
+    >
+
+        <!-- 캐릭터 -->
+        <div class="select-box">
+
+            <label>캐릭터</label>
+
+            <select id="submarine2">
+
+                <option value="레이건">레이건</option>
+                <option value="맥피시">맥피시</option>
+                <option value="보틀">보틀</option>
+                <option value="블라스트">블라스트</option>
+                <option value="씨울프">씨울프</option>
+                <option value="아쿨라">아쿨라</option>
+                <option value="아이언">아이언</option>
+                <option value="워터스피릿">워터스피릿</option>
+                <option value="유봇">유봇</option>
+                <option value="장보고">장보고</option>
+                <option value="제우스">제우스</option>
+                <option value="타이푼">타이푼</option>
+
+            </select>
+
+        </div>
+
+        <!-- 조류 -->
+        <div class="select-box">
+
+            <label>조류 (%)</label>
+
+            <input
+                type="number"
+                id="currentPercent2"
+                value="50"
+            >
+
+        </div>
+
+        <!-- 결과 -->
+        <div class="result">
+
+            <div class="result-title">순조류</div>
+            <div class="result-value" id="forwardValue2">0.0</div>
+
+            <div class="result-title">역조류</div>
+            <div class="result-value" id="reverseValue2">0.0</div>
+
+        </div>
 
     </div>
 
@@ -168,7 +288,6 @@ input{
 
 const submarineData = {
 
-    // A군
     "유봇":{
         base:36,
         max:39
@@ -184,7 +303,6 @@ const submarineData = {
         max:23
     },
 
-    // B군
     "레이건":{
         base:32,
         max:29
@@ -210,7 +328,6 @@ const submarineData = {
         max:25
     },
 
-    // C군
     "보틀":{
         base:28,
         max:21
@@ -226,7 +343,6 @@ const submarineData = {
         max:33
     },
 
-    // D군
     "장보고":{
         base:24,
         max:31
@@ -241,65 +357,49 @@ const submarineData = {
 */
 
 const currentTable = [
-    6,
-    13,
-    19,
-    25,
-    31,
-    38,
-    44,
-    50,
-    56,
-    63,
-    69,
-    75,
-    81,
-    88,
-    94,
-    100
+    6,13,19,25,
+    31,38,44,50,
+    56,63,69,75,
+    81,88,94,100
 ];
 
 /*
 ====================================
-DOM
+탭 변경
 ====================================
 */
 
-const submarineEl =
-    document.getElementById("submarine");
+function showTab(tabNumber){
 
-const distanceEl =
-    document.getElementById("distance");
+    document
+        .querySelectorAll(".tab-content")
+        .forEach(tab=>{
+            tab.classList.remove("active");
+        });
 
-const currentPercentEl =
-    document.getElementById("currentPercent");
+    document
+        .querySelectorAll(".tab-btn")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
 
-const forwardValue =
-    document.getElementById("forwardValue");
+    document
+        .getElementById("tab"+tabNumber)
+        .classList.add("active");
 
-const reverseValue =
-    document.getElementById("reverseValue");
+    document
+        .getElementById("tabBtn"+tabNumber)
+        .classList.add("active");
+
+}
 
 /*
 ====================================
-계산
+n값 계산
 ====================================
 */
 
-function calculate(){
-
-    const submarine =
-        submarineEl.value;
-
-    const distance =
-        Number(distanceEl.value);
-
-    const percent =
-        Number(currentPercentEl.value);
-
-    /*
-    가장 가까운 조류 단계 찾기
-    */
+function getN(percent){
 
     let n = 1;
 
@@ -320,6 +420,87 @@ function calculate(){
 
     });
 
+    return n;
+
+}
+
+/*
+====================================
+조류 계산기
+====================================
+*/
+
+function calculateCurrent(){
+
+    const submarine =
+        document.getElementById("submarine1").value;
+
+    const distance =
+        Number(
+            document.getElementById("distance1").value
+        );
+
+    const percent =
+        Number(
+            document.getElementById("currentPercent1").value
+        );
+
+    const n =
+        getN(percent);
+
+    const base =
+        submarineData[submarine].base;
+
+    const max =
+        submarineData[submarine].max;
+
+    const forward =
+        distance * base / (base + n);
+
+    const reverse =
+        distance * base / (base - n);
+
+    document.getElementById(
+        "forwardValue1"
+    ).textContent =
+        forward.toFixed(1);
+
+    if(reverse > max){
+
+        document.getElementById(
+            "reverseValue1"
+        ).textContent = "-";
+
+    }else{
+
+        document.getElementById(
+            "reverseValue1"
+        ).textContent =
+            reverse.toFixed(1);
+
+    }
+
+}
+
+/*
+====================================
+풀거리 계산기
+====================================
+*/
+
+function calculateFull(){
+
+    const submarine =
+        document.getElementById("submarine2").value;
+
+    const percent =
+        Number(
+            document.getElementById("currentPercent2").value
+        );
+
+    const n =
+        getN(percent);
+
     const base =
         submarineData[submarine].base;
 
@@ -328,39 +509,29 @@ function calculate(){
 
     /*
     순조류
+    Y = M + M*n/X
     */
 
     const forward =
-        distance * base / (base + n);
+        max + (max * n / base);
 
     /*
     역조류
+    Y = M - M*n/X
     */
 
     const reverse =
-        distance * base / (base - n);
+        max - (max * n / base);
 
-    /*
-    출력
-    */
-
-    forwardValue.textContent =
+    document.getElementById(
+        "forwardValue2"
+    ).textContent =
         forward.toFixed(1);
 
-    /*
-    역조류 제한
-    */
-
-    if(reverse > max){
-
-        reverseValue.textContent = "-";
-
-    }else{
-
-        reverseValue.textContent =
-            reverse.toFixed(1);
-
-    }
+    document.getElementById(
+        "reverseValue2"
+    ).textContent =
+        reverse.toFixed(1);
 
 }
 
@@ -370,19 +541,39 @@ function calculate(){
 ====================================
 */
 
-submarineEl.addEventListener(
+document.getElementById(
+    "submarine1"
+).addEventListener(
     "change",
-    calculate
+    calculateCurrent
 );
 
-distanceEl.addEventListener(
+document.getElementById(
+    "distance1"
+).addEventListener(
     "change",
-    calculate
+    calculateCurrent
 );
 
-currentPercentEl.addEventListener(
+document.getElementById(
+    "currentPercent1"
+).addEventListener(
     "input",
-    calculate
+    calculateCurrent
+);
+
+document.getElementById(
+    "submarine2"
+).addEventListener(
+    "change",
+    calculateFull
+);
+
+document.getElementById(
+    "currentPercent2"
+).addEventListener(
+    "input",
+    calculateFull
 );
 
 /*
@@ -391,7 +582,8 @@ currentPercentEl.addEventListener(
 ====================================
 */
 
-calculate();
+calculateCurrent();
+calculateFull();
 
 </script>
 
